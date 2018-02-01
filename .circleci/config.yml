@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:9.4.0
+      - image: node:9.4.0-alpine
     steps:
       - checkout
       - run: npm install
