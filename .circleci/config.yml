@@ -1,8 +1,8 @@
-version: 2
+version: 2.0
 jobs:
   build:
-    machine: 
-      image: circleci/classic:latest
+    docker: 
+      - image: penthaizza/lunarproject:site-1.0
     step:
       - checkout
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
