@@ -4,10 +4,7 @@ jobs:
     machine: true
     step:
       - checkout
-      # Login to DockerHub
       - run: |
          docker login -u $DOCKER_USER -p $DOCKER_PASS
-      # Build Docker Image
-      - run: docker build -t penthaizza/lunarproject-site:1.0 ./lunar-site
-      # Deploy image to DockerHub
-      - run: docker push penthaizza/lunarproject-site:1.0
+      - run: docker build -t penthaizza/lunarproject:site-1.0 ./lunar-site
+      - run: docker push penthaizza/lunarproject:site-1.0
