@@ -1,9 +1,8 @@
 version: 2.0
 jobs:
   build:
-    docker: 
-      - image: penthaizza/lunarproject:site-1.0
-    step:
+    machine: true
+    steps:
       - checkout
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: cd ./lunar-site
