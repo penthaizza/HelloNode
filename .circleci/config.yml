@@ -4,24 +4,54 @@ jobs:
     machine: true
     steps:
       - checkout
+      # Login DockerHub
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      # Build Dockerfile to image
       - run: docker build -t penthaizza/lunarproject:site-1.0 ./lunar-site
+      - run: docker build -t penthaizza/lunarproject:api-1.0 ./lunar-api
+      # Push Docker image to DockerHub
       - run: docker push penthaizza/lunarproject:site-1.0
-  test:
+      - run: docker push penthaizza/lunarproject:api-1.0
+
+  test-site:
     docker:
       - image: penthaizza/lunarproject:site-1.0
     steps:
       - checkout
       - run: yarn install
-      - run: echo "this is test space"
+      - run: echo "this is test-site space"
+
+  test-api:
+    docker:
+      - image: penthaizza/lunarproject:api-1.0
+    steps:
+      - checkout
+      - run: yarn install
+      - run: echo "this is test-api space"
+
+  deploy:
+    machine: true
+    branches:
+      only:
+        - master
+    steps:
+      - deploy:
+        command:
+        
 workflows:
   version: 2
-  build-test:
+  build-test-deploy:
     jobs:
       - build
-      - test:
+      - test-site:
           requires:
             - build
+          filters:
+            branches:
+              only: master
+      - test-api:
+          requires:
+            - test-site
           filters:
             branches:
               only: master        
