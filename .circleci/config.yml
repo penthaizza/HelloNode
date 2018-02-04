@@ -1,9 +1,13 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: circleci/node:7.10
-    steps:
+    machine: true
+    step:
       - checkout
-      - run: yarn install      
-      - run: yarn test
+      # Login to DockerHub
+      - run: |
+         docker login -u $DOCKER_USER -p $DOCKER_PASS
+      # Build Docker Image
+      - run: docker build -t penthaizza/lunarproject-site:1.0 ./lunar-site
+      # Deploy image to DockerHub
+      - run: docker push penthaizza/lunarproject-site:1.0
