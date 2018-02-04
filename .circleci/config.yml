@@ -6,5 +6,6 @@ jobs:
     step:
       - checkout
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - run: docker build -t penthaizza/lunarproject:site-1.0 ./lunar-site
+      - run: cd ./lunar-site
+      - run: docker build -t penthaizza/lunarproject:site-1.0 .
       - run: docker push penthaizza/lunarproject:site-1.0
