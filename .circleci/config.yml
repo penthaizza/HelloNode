@@ -1,4 +1,4 @@
-version: 2.0
+version: 2
 jobs:
   build:
     machine: true
@@ -19,10 +19,6 @@ workflows:
   build_and_test:
     jobs:
       - build
-          filters:
-            branches:
-              only:
-                - master
       - test
         requires:
           -build
