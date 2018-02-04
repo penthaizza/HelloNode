@@ -1,7 +1,8 @@
 version: 2
 jobs:
   build:
-    machine: true
+    machine: 
+      image: circleci/classic:latest
     step:
       - checkout
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
