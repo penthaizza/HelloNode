@@ -2,8 +2,8 @@ version: 2
 jobs:
   build:
     steps:
-      run:
-        command: ssh root@54.169.6.183 echo Running Test 
+      - run:
+          command: ssh root@54.169.6.183 echo Running Test 
 #     machine: true
 #     steps:
 #       - checkout
