@@ -3,16 +3,9 @@ jobs:
   build:
     machine: true
     steps:
-      - run:
-          command: 
-            ssh -o "StrictHostKeyChecking no" root@54.169.6.183 
-            echo Running Test
-            cat ~/.ssh/id_rsa
-            # cd /home/centos
-            # docker pull penthaizza/lunarproject:site-1.0
-            # docker images
-            # docker run --name lunar-site -p 3000:3000 -d penthaizza/lunarproject:site-1.0
-            # docker ps
+      - run: 
+          command:
+            ssh circleci@54.255.193.59 'echo Hello Word && docker ps'
 #     machine: true
 #     steps:
 #       - checkout
