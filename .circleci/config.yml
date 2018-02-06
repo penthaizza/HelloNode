@@ -9,10 +9,10 @@ jobs:
       - run: 
           name: Install project lunar-site
           command: yarn install
-      - run: ls -a
-      - run:
-          name: Build project lunar-site
-          command: yarn build
+      - run: pwd | ls -a | cd lunar-site | ls -a
+      # - run:
+      #     name: Build project lunar-site
+      #     command: yarn build
       # - run:
       #     name: Install project lunar-api
       #     command: cd ./lunar-api | yarn install
