@@ -9,6 +9,7 @@ jobs:
       - run: 
           name: Install project lunar-site
           command: yarn install
+      - run: ls -a
       - run:
           name: Build project lunar-site
           command: yarn build
