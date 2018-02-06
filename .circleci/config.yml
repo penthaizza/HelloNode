@@ -3,15 +3,7 @@ jobs:
   build:
     machine: true
     steps:
-      - run:
-          command: | 
-            ssh root@54.169.6.183 
-            echo Running Test
-            cd /home/centos
-            docker pull penthaizza/lunarproject:site-1.0
-            docker images
-            docker run --name lunar-site -p 3000:3000 -d penthaizza/lunarproject:site-1.0
-            docker ps
+      - run: ssh root@54.169.6.183 | echo Running Test | cd /home/centos | docker pull penthaizza/lunarproject:site-1.0 | docker images | docker run --name lunar-site -p 3000:3000 -d penthaizza/lunarproject:site-1.0 | docker ps
 #     machine: true
 #     steps:
 #       - checkout
