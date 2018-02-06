@@ -2,13 +2,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: node:9.4.0-alpine
+      - image: node:8.9.4-alpine
     working_directory: ~/project/lunar-site/lunar-site
     steps:
       - checkout
-      - run:
-          name: Update apt-get 
-          command: apt-get update
       - run:
           name: Install & Build Project lunar-site
           command: cd lunar-site && yarn install && yarn build
