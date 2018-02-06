@@ -3,7 +3,10 @@ jobs:
   build:
     machine: true
     steps:
-      - run: ssh -o "StrictHostKeyChecking no" circleci@54.255.193.59 "echo Hello Word"
+      - run:  ssh -o StrictHostKeyChecking=no circleci@54.255.193.59 "echo helloworld"
+      - add_ssh_keys:
+          fingerprints:
+            - "b7:35:a6:4e:9b:0d:6d:d4:78:1e:9a:97:2a:66:6b:be"
 #     machine: true
 #     steps:
 #       - checkout
