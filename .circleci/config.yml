@@ -9,7 +9,13 @@ jobs:
           name: Install project lunar-site
           command: cd ./lunar-site | yarn install
       - run:
-          name: Build project
+          name: Build project lunar-site
+          command: cd ./lunar-site | yarn build
+      - run:
+          name: Install project lunar-api
+          command: cd ./lunar-api | yarn install
+      - run:
+          name: Build project lunar-api
           command: cd ./lunar-api | yarn build
       - run: 
           name: test
