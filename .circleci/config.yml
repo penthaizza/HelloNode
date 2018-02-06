@@ -3,10 +3,7 @@ jobs:
   build:
     machine: true
     steps:
-      - run:  ssh -o StrictHostKeyChecking=no circleci@54.255.193.59 "echo helloworld"
-      - add_ssh_keys:
-          fingerprints:
-            - "e9:d1:a4:7e:36:58:af:65:6f:1b:e6:3a:97:a7:cb:eb"
+      - run: sudo apt-get install sshpass
 #     machine: true
 #     steps:
 #       - checkout
