@@ -15,15 +15,33 @@ jobs:
       - run: 
           name: test
           command: echo "This Test Space"
+      - setup_remote_docker: 
+          docker_layer_caching: true
       - run:
-          name: Build Artifact -> Login to Docker Hub
-          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - run:
-          name: Build Artifact -> Build Dockerfile to image
-          command: docker build -t penthaizza/lunarproject:site-1.0 ./lunar-site | docker build -t penthaizza/lunarproject:api-1.0 ./lunar-api
-      - run:
-          name: Push Docker image to Dockerhub
-          command: docker push penthaizza/lunarproject:site-1.0 | docker push penthaizza/lunarproject:api-1.0
+          name: Install Docker client
+          command: |
+            set -x
+            VER="17.12.0-ce"
+            curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-17.12.0-ce.tgz
+            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+            mv /tmp/docker/* /usr/bin
+      - run: 
+          name: Build and Push Docker image
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker build -t penthaizza/lunarproject:site-1.0 ./lunar-site
+            docker build -t penthaizza/lunarproject:api-1.0 ./lunar-api
+            docker push penthaizza/lunarproject:site-1.0
+            docker push penthaizza/lunarproject:api-1.0
+    #   - run:
+    #       name: Build Artifact -> Login to Docker Hub
+    #       command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+    #   - run:
+    #       name: Build Artifact -> Build Dockerfile to image
+    #       command: docker build -t penthaizza/lunarproject:site-1.0 ./lunar-site | docker build -t penthaizza/lunarproject:api-1.0 ./lunar-api
+    #   - run:
+    #       name: Push Docker image to Dockerhub
+    #       command: docker push penthaizza/lunarproject:site-1.0 | docker push penthaizza/lunarproject:api-1.0
   deploy:
     machine: true
     steps:
