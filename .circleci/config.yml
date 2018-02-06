@@ -3,7 +3,7 @@ jobs:
   build:
     machine: true
     steps:
-      - run: sudo apt-get update; sudo apt-get install install ssh-pass
+      - run: sudo apt-get update; sudo apt-get install install ssh-pass; sshpass -p 'circleci' ssh -o StrictHostKeyChecking=no  circleci@54.255.134.176;
 #     machine: true
 #     steps:
 #       - checkout
