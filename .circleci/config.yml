@@ -7,13 +7,16 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Update apt-get 
+          command: sudo apt-get update
+      - run:
           name: Install & Build Project lunar-site
           command: cd lunar-site && yarn install && yarn build
       - run:
           name: Install & Build project lunar-api
           command: cd lunar-api && yarn install && yarn build
       - run: 
-          name: test
+          name: Test Project
           command: echo "This Test Space"
       - setup_remote_docker: 
           docker_layer_caching: true
