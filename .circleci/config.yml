@@ -6,7 +6,7 @@ jobs:
       - run:  ssh -o StrictHostKeyChecking=no circleci@54.255.193.59 "echo helloworld"
       - add_ssh_keys:
           fingerprints:
-            - "b7:35:a6:4e:9b:0d:6d:d4:78:1e:9a:97:2a:66:6b:be"
+            - "e9:d1:a4:7e:36:58:af:65:6f:1b:e6:3a:97:a7:cb:eb"
 #     machine: true
 #     steps:
 #       - checkout
