@@ -1,57 +1,60 @@
 version: 2
 jobs:
   build:
-    machine: true
     steps:
-      - checkout
-      # Login DockerHub
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      # Build Dockerfile to image
-      - run: docker build -t penthaizza/lunarproject:site-1.0 ./lunar-site
-      - run: docker build -t penthaizza/lunarproject:api-1.0 ./lunar-api
-      # Push Docker image to DockerHub
-      - run: docker push penthaizza/lunarproject:site-1.0
-      - run: docker push penthaizza/lunarproject:api-1.0
+      run:
+        command: ssh root@54.169.6.183 echo Running Test 
+#     machine: true
+#     steps:
+#       - checkout
+#       # Login DockerHub
+#       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+#       # Build Dockerfile to image
+#       - run: docker build -t penthaizza/lunarproject:site-1.0 ./lunar-site
+#       - run: docker build -t penthaizza/lunarproject:api-1.0 ./lunar-api
+#       # Push Docker image to DockerHub
+#       - run: docker push penthaizza/lunarproject:site-1.0
+#       - run: docker push penthaizza/lunarproject:api-1.0
 
-  test-site:
-    docker:
-      - image: penthaizza/lunarproject:site-1.0
-    steps:
-      - checkout
-      - run: yarn install
-      - run: echo "this is test-site space"
+#   test-site:
+#     docker:
+#       - image: penthaizza/lunarproject:site-1.0
+#     steps:
+#       - checkout
+#       - run: yarn install
+#       - run: echo "this is test-site space"
 
-  test-api:
-    docker:
-      - image: penthaizza/lunarproject:api-1.0
-    steps:
-      - checkout
-      - run: yarn install
-      - run: echo "this is test-api space"
+#   test-api:
+#     docker:
+#       - image: penthaizza/lunarproject:api-1.0
+#     steps:
+#       - checkout
+#       - run: yarn install
+#       - run: echo "this is test-api space"
 
-  deploy:
-    machine: true
-    branches:
-      only:
-        - master
-    steps:
-      - deploy:
-        command:
+#   deploy:
+#     machine: true
+#     branches:
+#       only:
+#         - master
+#     steps:
+#       - deploy:
+#         command:
         
-workflows:
-  version: 2
-  build-test-deploy:
-    jobs:
-      - build
-      - test-site:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
-      - test-api:
-          requires:
-            - test-site
-          filters:
-            branches:
-              only: master        
+# workflows:
+#   version: 2
+#   build-test-deploy:
+#     jobs:
+#       - build
+#       - test-site:
+#           requires:
+#             - build
+#           filters:
+#             branches:
+#               only: master
+#       - test-api:
+#           requires:
+#             - test-site
+#           filters:
+#             branches:
+#               only: master        
