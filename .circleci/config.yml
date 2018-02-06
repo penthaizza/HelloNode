@@ -7,16 +7,16 @@ jobs:
       - checkout
       - run: 
           name: Install project lunar-site
-          command: cd ./lunar-site | yarn install
+          command: yarn install
       - run:
           name: Build project lunar-site
-          command: cd ./lunar-site | yarn build
-      - run:
-          name: Install project lunar-api
-          command: cd ./lunar-api | yarn install
-      - run:
-          name: Build project lunar-api
-          command: cd ./lunar-api | yarn build
+          command: yarn build
+      # - run:
+      #     name: Install project lunar-api
+      #     command: cd ./lunar-api | yarn install
+      # - run:
+      #     name: Build project lunar-api
+      #     command: cd ./lunar-api | yarn build
       - run: 
           name: test
           command: echo "This Test Space"
