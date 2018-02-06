@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Update apt-get 
-          command: sudo apt-get update
+          command: apt-get update
       - run:
           name: Install & Build Project lunar-site
           command: cd lunar-site && yarn install && yarn build
