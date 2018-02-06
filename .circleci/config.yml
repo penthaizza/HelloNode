@@ -39,11 +39,14 @@ jobs:
     machine: true
     steps:
       - run: 
-          name: Deploy to Server
-          command: |  
-             sudo apt-get update
-             sudo apt-get install sshpass 
-             sudo sshpass -p '$PASS_SERVER' ssh -o StrictHostKeyChecking=no $USER_SERVER@$SERVER "ls -a && sudo docker stop lunar-site && sudo docker rm lunar-site && sudo docker rmi penthaizza/lunarproject:$SITE_TAG && sudo docker pull penthaizza/lunarproject:$SITE_TAG && sudo docker run -d -p 3000:3000 --name lunar-site penthaizza/lunarproject:$SITE_TAG"
+          name: Update apt-get
+          command: sudo apt-get update
+      - run:
+          name: Install SSHPASS
+          command: sudo apt-get install sshpass 
+      - run:
+          name: SSH to Server & Deploy Docker     
+          command: sudo sshpass -p '$PASS_SERVER' ssh -o StrictHostKeyChecking=no $USER_SERVER@$SERVER "ls -a && sudo docker stop lunar-site && sudo docker rm lunar-site && sudo docker rmi penthaizza/lunarproject:$SITE_TAG && sudo docker pull penthaizza/lunarproject:$SITE_TAG && sudo docker run -d -p 3000:3000 --name lunar-site penthaizza/lunarproject:$SITE_TAG"
 workflows:
   version: 2
   build-test-deploy:
