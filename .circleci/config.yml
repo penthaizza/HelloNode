@@ -3,9 +3,7 @@ jobs:
   build:
     machine: true
     steps:
-      - run: 
-          command:
-            ssh circleci@54.255.193.59 'echo Hello Word && docker ps'
+      - run: ssh -o "StrictHostKeyChecking no" circleci@54.255.193.59 "echo Hello Word && docker ps"
 #     machine: true
 #     steps:
 #       - checkout
