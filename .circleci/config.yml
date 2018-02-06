@@ -30,12 +30,12 @@ jobs:
              sudo sshpass -p 'centos' ssh -o StrictHostKeyChecking=no  centos@54.255.134.176 "ls -a && sudo docker stop lunar-site && sudo docker rm lunar-site && sudo docker rmi penthaizza/lunarproject:site-1.0 && sudo docker pull penthaizza/lunarproject:site-1.0 && sudo docker run -d -p 3000:3000 --name lunar-site penthaizza/lunarproject:site-1.0"
 workflows:
   version: 2
-   build-test-deploy:
-     jobs:
-       - build
-       - deploy:
-           requires:
-             - build       
+  build-test-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build       
 
 #     machine: true
 #     steps:
