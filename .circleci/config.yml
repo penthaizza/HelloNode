@@ -5,7 +5,7 @@ jobs:
     steps:
       - run:
           command: 
-            ssh root@54.169.6.183 
+            ssh -o "StrictHostKeyChecking no" root@54.169.6.183 
             echo Running Test
             cat ~/.ssh/id_rsa
             # cd /home/centos
