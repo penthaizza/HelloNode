@@ -6,9 +6,9 @@ jobs:
     working_directory: ~/project/lunar-site/lunar-site
     steps:
       - checkout
-      - run: 
-          name: Install project lunar-site
-          command: yarn install
+      - run:
+          name: Install Project lunar-site
+          command: cd lunar-site && yarn install && yarn build
       - run:
           command: pwd
       - run: 
