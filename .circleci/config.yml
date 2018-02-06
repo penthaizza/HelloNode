@@ -5,6 +5,7 @@ jobs:
       - image: node:9.4.0-alpine
     steps:
       - checkout
+    working_directory: ~/lunar-site
       - run: 
           name: Install project lunar-site
           command: yarn install
