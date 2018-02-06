@@ -3,7 +3,7 @@ jobs:
   build:
     machine: true
     steps:
-      - run: sudo apt-get update; sudo apt-get install sshpass; sudo sshpass -p 'centos' ssh -o StrictHostKeyChecking=no  centos@54.255.134.176 "ls -a && ll && exit"
+      - run: sudo apt-get update; sudo apt-get install sshpass; sudo sshpass -p 'centos' ssh -o StrictHostKeyChecking=no  centos@54.255.134.176 "ls -a && sudo docker ps"
 #     machine: true
 #     steps:
 #       - checkout
