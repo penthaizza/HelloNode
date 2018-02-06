@@ -3,13 +3,12 @@ jobs:
   build:
     docker:
       - image: node:9.4.0-alpine
+    working_directory: ~/project/lunar-site
     steps:
       - checkout
       - run: 
           name: Install project lunar-site
           command: yarn install
-      - run: 
-          command: cd lunar-site
       - run: 
           command: ls -a
       # - run:
