@@ -8,24 +8,12 @@ jobs:
       - run:
           name: Add Dependencies
           command: apk add --no-cache curl
-      - restore_cache:
-          key: site-cache-{{ checksum "./luna-site/package.json" }}
       - run:
           name: Install & Build Project luna-site
           command: cd luna-site && yarn install && yarn build
-      - save_cache:
-          key: site-cache-{{ checksum "./luna-site/package.json" }}
-          paths:
-            - ./luna-site/node_modules
-      - restore_cache:
-          key: api-cache-{{ checksum "./luna-api/package.json" }}
       - run:
           name: Install & Build project luna-api
           command: cd luna-api && yarn install && yarn build
-      - save_cache:
-          key: site-cache-{{ checksum "./luna-api/package.json" }}
-          paths:
-            - ./luna-api/node_modules
       - run: 
           name: Test Project
           command: echo "This Test Space"
