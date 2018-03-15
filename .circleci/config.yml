@@ -10,10 +10,10 @@ jobs:
           command: apk add --no-cache curl
       - run:
           name: Install & Build Project luna-site
-          command: cd luna-site && yarn install && yarn build
+          command: cd ./luna/luna-site && yarn install && yarn build
       - run:
           name: Install & Build project luna-api
-          command: cd luna-api && yarn install && yarn build
+          command: cd ./luna/luna-api && yarn install && yarn build
       - run: 
           name: Test Project
           command: echo "This Test Space"
