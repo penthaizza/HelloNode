@@ -9,23 +9,23 @@ jobs:
           name: Add Dependencies
           command: apk add --no-cache curl
       - restore_cache:
-          key: site-cache-{{ checksum "./lunar-site/package.json" }}
+          key: site-cache-{{ checksum "./luna-site/package.json" }}
       - run:
-          name: Install & Build Project lunar-site
-          command: cd lunar-site && yarn install && yarn build
+          name: Install & Build Project luna-site
+          command: cd luna-site && yarn install && yarn build
       - save_cache:
-          key: site-cache-{{ checksum "./lunar-site/package.json" }}
+          key: site-cache-{{ checksum "./luna-site/package.json" }}
           paths:
-            - ./lunar-site/node_modules
+            - ./luna-site/node_modules
       - restore_cache:
-          key: api-cache-{{ checksum "./lunar-api/package.json" }}
+          key: api-cache-{{ checksum "./luna-api/package.json" }}
       - run:
-          name: Install & Build project lunar-api
-          command: cd lunar-api && yarn install && yarn build
+          name: Install & Build project luna-api
+          command: cd luna-api && yarn install && yarn build
       - save_cache:
-          key: site-cache-{{ checksum "./lunar-api/package.json" }}
+          key: site-cache-{{ checksum "./luna-api/package.json" }}
           paths:
-            - ./lunar-api/node_modules
+            - ./luna-api/node_modules
       - run: 
           name: Test Project
           command: echo "This Test Space"
@@ -43,11 +43,11 @@ jobs:
           name: Build and Push Docker image
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker build -t penthaizza/lunarproject:$SITE_TAG ./lunar-site
-            docker build -t penthaizza/lunarproject:$API_TAG ./lunar-api
-            docker push penthaizza/lunarproject:$SITE_TAG
-            docker push penthaizza/lunarproject:$API_TAG
-  deploy:
+            docker build -t penthaizza/lunaproject:$SITE_TAG ./luna-site
+            docker build -t penthaizza/lunaproject:$API_TAG ./luna-api
+            docker push penthaizza/lunaproject:$SITE_TAG
+            docker push penthaizza/lunaproject:$API_TAG
+  deploy-to-dev:
     machine: true
     steps:
       - run: 
@@ -55,15 +55,18 @@ jobs:
           command: | 
             sudo apt-get update
             sudo apt-get install sshpass
-            sudo sshpass -p $PASS_SERVER ssh -o StrictHostKeyChecking=no $USER_SERVER@$SERVER_HOST "ls -a && sudo docker stop lunar-site && sudo docker rm lunar-site && sudo docker rmi penthaizza/lunarproject:$SITE_TAG && sudo docker pull penthaizza/lunarproject:$SITE_TAG && sudo docker run -d -p 3000:3000 --name lunar-site penthaizza/lunarproject:$SITE_TAG"
+            sudo sshpass -p $PASS_SERVER ssh -o StrictHostKeyChecking=no $USER_SERVER@$SERVER_HOST "ls -a && sudo docker stop luna-site && sudo docker rm luna-site && sudo docker rmi penthaizza/lunaproject:$SITE_TAG && sudo docker pull penthaizza/lunaproject:$SITE_TAG && sudo docker run -d -p 3000:3000 --name luna-site penthaizza/lunaproject:$SITE_TAG"
       - run:
           name: Deploy to API-Server
-          command: sudo sshpass -p $PASS_SERVER ssh -o StrictHostKeyChecking=no $USER_SERVER@$SERVER_HOST "ls -a && sudo docker stop lunar-api && sudo docker rm lunar-api && sudo docker rmi penthaizza/lunarproject:$API_TAG && sudo docker pull penthaizza/lunarproject:$API_TAG && sudo docker run -d -p 3001:4000 -e "NODE_ENV=development" --name lunar-api penthaizza/lunarproject:$API_TAG"
+          command: sudo sshpass -p $PASS_SERVER ssh -o StrictHostKeyChecking=no $USER_SERVER@$SERVER_HOST "ls -a && sudo docker stop luna-api && sudo docker rm luna-api && sudo docker rmi penthaizza/lunaproject:$API_TAG && sudo docker pull penthaizza/lunaproject:$API_TAG && sudo docker run -d -p 3001:4000 -e "NODE_ENV=development" --name luna-api penthaizza/lunaproject:$API_TAG"
 workflows:
   version: 2
   build-test-deploy:
     jobs:
       - build
-      - deploy:
+      - deploy-to-dev:
           requires:
-            - build       
+            - build
+          filters:
+            branches:
+                only: develop
