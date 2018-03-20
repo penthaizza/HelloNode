@@ -1,9 +1,9 @@
-FROM node:8.9.4 as build
+FROM node:8.10.0 as build
 WORKDIR /app
 COPY . ./
 RUN yarn install && yarn build
 
-FROM node:8.9.4-alpine
+FROM node:8.10.0-alpine
 WORKDIR /app
 COPY --from=build /app/.next .next
 COPY --from=build /app/node_modules node_modules
